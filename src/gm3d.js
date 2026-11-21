@@ -292,6 +292,144 @@
     ctx.dispose = function(){ cancelAnimationFrame(raf); removeEventListener('resize', fit); disposables.forEach(function(d){ try { d.dispose(); } catch (e) {} }); renderer.dispose(); };
   }
 
+  /* ===== seções do protótipo: Sobre, Três linhas, Coleção 01, Cotidiano ===== */
+  var ASSETS = PRINT.replace(/baiana\.jpg$/, '');
+  function addHeadExtras(){
+    if (document.getElementById('gmx-css')) return;
+    var s = document.createElement('style'); s.id = 'gmx-css';
+    s.textContent = [
+      '[id^="secao-de-informacao-"]{display:none!important}',
+      '.gmx{--papel:#F3EEE4;--papel-2:#E8E0D0;--tinta:#171412;--tinta-2:#4B443D;--terra:#A9532D;--areia:#D9C8A7;--bemtevi:#F1C232;--f-t:"Archivo","Arial Narrow",Impact,sans-serif;--f-x:"Rubik",Arial,sans-serif;--f-m:"Mali","Comic Neue",cursive;flex-shrink:0;width:100%;box-sizing:border-box;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px);background:var(--papel);color:var(--tinta);font-family:var(--f-x);font-size:16px;line-height:1.55}',
+      '.gmx *{box-sizing:border-box}',
+      '.gmx p{margin:0}',
+      '.gmx .tag{display:inline-block;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--terra);margin:0}',
+      '.gmx .tit{font-family:var(--f-t);font-stretch:62%;font-weight:800;text-transform:uppercase;line-height:1.04;margin:10px 0 0;font-size:clamp(2.3rem,6.4vw,5rem);text-wrap:balance}',
+      '.gmx .cx{background:var(--tinta);color:var(--papel);padding:0 .14em;-webkit-box-decoration-break:clone;box-decoration-break:clone}',
+      '.gmx .cxc{background:var(--papel);color:var(--tinta);padding:0 .14em;-webkit-box-decoration-break:clone;box-decoration-break:clone}',
+      '.gmx .lead{font-size:clamp(1.02rem,1.3vw,1.15rem);color:var(--tinta-2);max-width:56ch}',
+      '.gmx .mao{font-family:var(--f-m);font-weight:700}',
+      '.gmx .btn{display:inline-flex;align-items:center;padding:12px 20px;border-radius:999px;background:var(--tinta);color:var(--papel);text-decoration:none;font-weight:600;font-size:14px;border:1.5px solid var(--tinta);transition:background .2s,border-color .2s}',
+      '.gmx .btn:hover{background:var(--terra);border-color:var(--terra)}',
+      /* sobre */
+      '#gmx-sobre{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);align-items:end;padding-top:clamp(90px,15vh,170px);padding-bottom:clamp(90px,15vh,170px)}',
+      '#gmx-sobre .manifesto{font-family:var(--f-t);font-stretch:62%;font-weight:800;text-transform:uppercase;font-size:clamp(2.4rem,6vw,5.4rem);line-height:.98;margin:14px 0 0;text-wrap:balance}',
+      '#gmx-sobre .w{opacity:.18;transition:opacity .25s}#gmx-sobre .w.on{opacity:1}#gmx-sobre .w.t{color:var(--terra)}',
+      '#gmx-sobre .txt{display:grid;gap:16px;color:var(--tinta-2);max-width:46ch}',
+      '#gmx-sobre .txt .mao{color:var(--tinta);font-size:1.25rem;font-weight:600}',
+      /* linhas */
+      '#gmx-linhas{padding-top:clamp(40px,8vh,90px);padding-bottom:clamp(90px,14vh,150px);border-top:1px solid var(--tinta)}',
+      '#gmx-linhas .topo{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px 40px;margin-bottom:clamp(28px,5vh,48px)}',
+      '#gmx-linhas .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2vw,28px)}',
+      '#gmx-linhas .card{display:grid;align-content:start;gap:12px;min-width:0}',
+      '#gmx-linhas figure{position:relative;margin:0;aspect-ratio:4/5;overflow:hidden;border:1px solid var(--tinta);display:grid;place-items:center}',
+      '#gmx-linhas .cot{background:var(--papel-2)}#gmx-linhas .bra{background:var(--areia)}',
+      '#gmx-linhas .ret{background:var(--tinta) url("' + ASSETS + 'baiana.jpg") 61% 46%/auto 150% no-repeat}',
+      '#gmx-linhas .letreiro{font-family:var(--f-t);font-stretch:62%;font-weight:900;text-transform:uppercase;color:var(--terra);font-size:clamp(3rem,6.5vw,5.6rem);line-height:.86;text-align:center;transform:rotate(-4deg);filter:url(#gmx-gasto)}',
+      '#gmx-linhas .letreiro small{display:block;font-size:.34em;letter-spacing:.08em;color:var(--tinta);margin-top:.35em}',
+      '#gmx-linhas .bicho{position:absolute;left:0;right:0;bottom:18px;text-align:center;font-family:var(--f-t);font-stretch:62%;font-weight:800;font-size:clamp(1.4rem,2.3vw,2rem);letter-spacing:.08em}',
+      '#gmx-linhas .passaro{width:62%;transform:translateY(-8%)}#gmx-linhas .passaro svg{display:block;width:100%;height:auto;overflow:visible}',
+      '#gmx-linhas .asa{transform-box:view-box;transform-origin:116px 80px;transform:rotate(8deg)}',
+      '#gmx-linhas .num{position:absolute;left:14px;top:12px;font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--terra);background:var(--papel);padding:.2em .5em}',
+      '#gmx-linhas h3{font-family:var(--f-t);font-stretch:62%;font-weight:800;text-transform:uppercase;font-size:clamp(1.7rem,2.6vw,2.3rem);line-height:1;margin:6px 0 0}',
+      '#gmx-linhas .card p{color:var(--tinta-2)}',
+      /* coleção */
+      '#gmx-colecao{background:var(--tinta);color:var(--papel);padding-top:clamp(80px,13vh,140px);padding-bottom:clamp(80px,13vh,140px)}',
+      '#gmx-colecao .tag{color:var(--areia)}',
+      '#gmx-colecao .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(28px,4vw,64px);align-items:start;margin-top:clamp(28px,5vh,52px)}',
+      '#gmx-colecao ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--tinta-2)}',
+      '#gmx-colecao li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 18px;padding:20px 0;border-bottom:1px solid var(--tinta-2)}',
+      '#gmx-colecao .n{font-family:var(--f-t);font-stretch:62%;font-weight:800;font-size:1.6rem;color:var(--terra);line-height:1;grid-row:span 2}',
+      '#gmx-colecao h3{font-family:var(--f-t);font-stretch:62%;font-weight:800;text-transform:uppercase;font-size:clamp(1.6rem,2.4vw,2.1rem);line-height:1;margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:10px}',
+      '#gmx-colecao .st{font-family:var(--f-x);font-stretch:100%;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--areia);color:var(--areia);border-radius:999px;padding:3px 9px}',
+      '#gmx-colecao .st.ok{background:var(--terra);border-color:var(--terra);color:var(--papel)}',
+      '#gmx-colecao li p{color:var(--areia);min-width:0}',
+      '#gmx-colecao figure{margin:0;display:grid;gap:12px}',
+      '#gmx-colecao img{display:block;width:100%;height:auto;aspect-ratio:1162/768;object-fit:cover;border:1px solid var(--tinta-2)}',
+      '#gmx-colecao figcaption{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;align-items:baseline}',
+      '#gmx-colecao figcaption .mao{font-size:1.5rem;color:var(--bemtevi)}#gmx-colecao figcaption span:last-child{color:var(--areia);font-size:14px}',
+      '#gmx-colecao .btn{background:var(--papel);color:var(--tinta);border-color:var(--papel);margin-top:22px}#gmx-colecao .btn:hover{background:var(--terra);color:var(--papel);border-color:var(--terra)}',
+      /* cotidiano */
+      '#gmx-cot{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,5vw,80px);align-items:center;padding-top:clamp(90px,15vh,170px);padding-bottom:clamp(90px,15vh,170px)}',
+      '#gmx-cot figure{margin:0;position:relative}',
+      '#gmx-cot img{display:block;width:100%;height:auto;aspect-ratio:1000/1437;object-fit:cover;filter:grayscale(1);border:1px solid var(--tinta)}',
+      '#gmx-cot figcaption{position:absolute;right:-12px;bottom:28px;transform:rotate(-3deg);font-size:1.15rem;background:var(--papel);padding:.3em .7em;border:1px solid var(--tinta)}',
+      '#gmx-cot .citacao{font-family:var(--f-t);font-stretch:62%;font-weight:800;text-transform:uppercase;font-size:clamp(2.4rem,5.6vw,5rem);line-height:1.04;margin:14px 0 22px;text-wrap:balance}',
+      '#gmx-cot .btns{margin-top:20px}',
+      '@media (max-width:899px){#gmx-sobre,#gmx-cot,#gmx-colecao .grid{grid-template-columns:1fr}#gmx-linhas .cards{grid-template-columns:1fr}#gmx-linhas figure{aspect-ratio:5/4}#gmx-linhas .ret{background-size:auto 190%}#gmx-cot figcaption{right:8px}}',
+      '@media (prefers-reduced-motion:reduce){#gmx-sobre .w{opacity:1}#gmx-cot img{filter:none}}'
+    ].join('\n');
+    document.head.appendChild(s);
+  }
+
+  function buildExtras(){
+    var base = storeBase(), lancado = Date.now() >= LAUNCH;
+    function el(html){ var d = document.createElement('div'); d.innerHTML = html.trim(); return d.firstChild; }
+    var defs = el('<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="gmx-gasto" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="2" seed="7" result="r"/><feColorMatrix in="r" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.4 1.5" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter></svg>');
+    var sobre = el('<section class="gmx" id="gmx-sobre" aria-labelledby="gmx-sobre-t"><div><span class="tag">Sobre a Gira Moço</span>' +
+      '<p class="manifesto" id="gmx-sobre-t">A moda como manifesto de preservação de <span class="t">identidades e culturas.</span></p></div>' +
+      '<div class="txt"><p>Acreditamos que o vestuário é uma plataforma de reverência. Na Gira Moço, desenvolvemos coleções autorais inspiradas na riqueza profunda da cultura e dos povos brasileiros.</p>' +
+      '<p>Nosso maior objetivo é mostrar que existe riqueza na simplicidade e na vida cotidiana, trazendo mensagens e sentimentos através das nossas estampas.</p>' +
+      '<p class="mao">E, ao mesmo tempo, te deixar mais estiloso ou mais estilosa ;)</p></div></section>');
+    var linhas = el('<section class="gmx" id="gmx-linhas" aria-labelledby="gmx-linhas-t"><div class="topo"><div><span class="tag">Três linhas, uma família</span>' +
+      '<h2 class="tit" id="gmx-linhas-t"><span class="cx">Cada estampa tem um assunto</span></h2></div>' +
+      '<p class="lead">Frases da rua, bichos e plantas daqui e rostos em preto e branco. Estilos diferentes, a mesma cara de Gira Moço.</p></div>' +
+      '<div class="cards">' +
+      '<article class="card"><figure class="cot"><span class="num">01</span><div class="letreiro" aria-hidden="true">Fiado só<br>amanhã<small>Tem geladinho · Cuidado com o cão</small></div></figure><h3>Cotidiano</h3><p>Frases e gírias que a gente usa todo dia, pintadas como placa de boteco.</p></article>' +
+      '<article class="card"><figure class="bra"><span class="num">02</span><div class="passaro" aria-hidden="true">' + BIRD + '</div><span class="bicho" aria-hidden="true">BEM-TE-VI</span></figure><h3>Brasilidade</h3><p>Fauna, flora e símbolos do dia a dia, em traço de xilogravura e cordel, com o nome do bicho embaixo.</p></article>' +
+      '<article class="card"><figure class="ret" role="img" aria-label="Retrato em preto e branco de uma senhora com uma bacia de frutas na cabeça"><span class="num">03</span></figure><h3>Retratos</h3><p>Fotografia documental em preto e branco, com granulação de filme e um dado verdadeiro sobre cada povo.</p></article>' +
+      '</div></section>');
+    var st = lancado ? 'Em breve' : 'Em criação';
+    var colecao = el('<section class="gmx" id="gmx-colecao" aria-labelledby="gmx-colecao-t"><span class="tag">' + (lancado ? 'Coleção 01 · no ar' : 'Coleção 01 · lançamento em 20.11') + '</span>' +
+      '<h2 class="tit" id="gmx-colecao-t"><span class="cxc">Só Tem no Brasil</span></h2><div class="grid"><div><ol>' +
+      '<li><span class="n">01</span><h3>Letreiros <span class="st ok">' + (lancado ? 'Disponível' : 'Aprovada') + '</span></h3><p>Fiado só amanhã · Cuidado com o cão · Tem geladinho</p></li>' +
+      '<li><span class="n">02</span><h3>Ditados <span class="st">' + st + '</span></h3><p>Quem não tem cão caça com gato · Água mole em pedra dura · Devagar se vai ao longe</p></li>' +
+      '<li><span class="n">03</span><h3>Bichos do Brasil <span class="st">' + st + '</span></h3><p>Capivara · tatu-bola · onça-pintada · bem-te-vi · boto-cor-de-rosa</p></li>' +
+      '<li><span class="n">04</span><h3>Retratos <span class="st">' + st + '</span></h3><p>Rostos em preto e branco, com o nome do povo e um dado verdadeiro</p></li>' +
+      '</ol><a class="btn" href="' + base + '/camisetas">Ver camisetas</a></div>' +
+      '<figure><img src="' + ASSETS + 'nemtevi.jpg" alt="Rapaz sentado na arquibancada vestindo a camiseta branca Nem te vi, com um bem-te-vi de óculos escuros" width="1162" height="768" loading="lazy">' +
+      '<figcaption><span class="mao">Nem te vi</span><span>Camiseta clássica · linha Brasilidade</span></figcaption></figure></div></section>');
+    var cot = el('<section class="gmx" id="gmx-cot" aria-labelledby="gmx-cot-t"><figure><img src="' + ASSETS + 'senhores.jpg" alt="Três senhores de chapéu sentados em cadeiras vermelhas em frente a uma parede amarela" width="1000" height="1437" loading="lazy">' +
+      '<figcaption class="mao">a vida acontece na calçada</figcaption></figure>' +
+      '<div><span class="tag">Cotidiano</span><p class="citacao" id="gmx-cot-t">Existe riqueza na <span class="cx">simplicidade</span> e na vida cotidiana.</p>' +
+      '<p class="lead">As estampas nascem do que a gente vê na rua: a placa pintada à mão, o ditado da avó, o passarinho no fio, a conversa na calçada.</p>' +
+      '<div class="btns"><a class="btn" href="' + base + '/camisetas">Ver camisetas</a></div></div></section>');
+    sobre.insertBefore(defs, sobre.firstChild);
+    /* palavras do manifesto */
+    var man = sobre.querySelector('.manifesto');
+    (function split(node, terra){
+      [].slice.call(node.childNodes).forEach(function(ch){
+        if (ch.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          ch.textContent.split(/(\s+)/).forEach(function(part){
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+            var w = document.createElement('span'); w.className = 'w' + (terra ? ' t' : ''); w.textContent = part; frag.appendChild(w);
+          });
+          node.replaceChild(frag, ch);
+        } else if (ch.nodeType === 1) {
+          var isT = ch.classList.contains('t'); split(ch, terra || isT);
+          if (isT) { while (ch.firstChild) node.insertBefore(ch.firstChild, ch); node.removeChild(ch); }
+        }
+      });
+    })(man, false);
+    return [sobre, linhas, colecao, cot];
+  }
+
+  function startExtras(extras){
+    var alive = true, man = extras[0].querySelector('.manifesto'), words = [].slice.call(man.querySelectorAll('.w')), img = extras[3].querySelector('img');
+    function clamp01(x){ return x < 0 ? 0 : x > 1 ? 1 : x; }
+    function upd(){
+      if (!alive) return;
+      var vh = innerHeight, r = man.getBoundingClientRect();
+      var p = clamp01((vh * 0.8 - r.top) / (r.height + vh * 0.3)), n = Math.round(p * words.length);
+      words.forEach(function(w, i){ w.classList.toggle('on', i < n); });
+      var ri = img.getBoundingClientRect(), q = clamp01((vh * 0.75 - ri.top) / (vh * 0.75 - (vh * 0.4 - ri.height / 2)));
+      img.style.filter = 'grayscale(' + (1 - q).toFixed(3) + ')';
+    }
+    document.addEventListener('scroll', upd, {capture: true, passive: true}); addEventListener('resize', upd); upd();
+    return function(){ alive = false; document.removeEventListener('scroll', upd, {capture: true}); removeEventListener('resize', upd); };
+  }
+
   /* encaixe na home da Montink (a loja troca de página sem recarregar) */
   function tick(){
     var home = isHome();
@@ -302,13 +440,16 @@
       var parent = content.parentElement, marquee = parent.querySelector('[id^="marquee-"]');
       var anchor = marquee && marquee.parentElement === parent ? marquee.nextSibling : parent.firstChild;
       if (inst && inst.sec.isConnected && inst.sec.parentElement === parent) return;
-      addHead();
-      if (inst) { if (inst.sec.isConnected) inst.sec.remove(); }
+      addHead(); addHeadExtras();
+      if (inst) { if (inst.sec.isConnected) inst.sec.remove(); inst.extras.forEach(function(n){ if (n.isConnected) n.remove(); }); }
       var sec = inst ? inst.sec : build();
       parent.insertBefore(sec, anchor);
-      if (!inst) inst = {sec: sec, stop: start(sec)};
+      var extras = inst ? inst.extras : buildExtras();
+      var after = sec.nextSibling;
+      extras.forEach(function(n){ parent.insertBefore(n, after); });
+      if (!inst) { var s1 = start(sec), s2 = startExtras(extras); inst = {sec: sec, extras: extras, stop: function(){ s1(); s2(); }}; }
     } else if (inst) {
-      inst.stop(); if (inst.sec.isConnected) inst.sec.remove(); inst = null;
+      inst.stop(); if (inst.sec.isConnected) inst.sec.remove(); inst.extras.forEach(function(n){ if (n.isConnected) n.remove(); }); inst = null;
     }
   }
   setInterval(tick, 400);
